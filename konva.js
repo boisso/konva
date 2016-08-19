@@ -3,7 +3,7 @@
  * Konva JavaScript Framework v1.0.3
  * http://konvajs.github.io/
  * Licensed under the MIT or GPL Version 2 licenses.
- * Date: Sun Aug 14 2016
+ * Date: Fri Aug 19 2016
  *
  * Original work Copyright (C) 2011 - 2013 by Eric Rowell (KineticJS)
  * Modified work Copyright (C) 2014 - 2015 by Anton Lavrenov (Konva)
@@ -49,6 +49,7 @@
         shapes: {},
         listenClickTap: false,
         inDblClickWindow: false,
+        outOfFocus: false,
 
         // configurations
         enableTrace: false,
@@ -11141,9 +11142,17 @@
         node: null,
 
         // methods
+        _focus: function(evt) {
+            Konva.outOfFocus = true;
+        },
+
         _drag: function(evt) {
             var dd = Konva.DD,
                 node = dd.node;
+            if (Konva.outOfFocus) {
+               Konva.outOfFocus = false;
+               return;
+            }     
 
             if(node) {
                if(!dd.isDragging) {
@@ -11430,6 +11439,8 @@
     html.addEventListener('mouseup', Konva.DD._endDragAfter, false);
     html.addEventListener('touchend', Konva.DD._endDragAfter, false);
 
+    // To ignore mousemove after getting focus
+    window.addEventListener('focus', Konva.DD._focus);
 })();
 
 (function() {

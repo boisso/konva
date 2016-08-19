@@ -19,7 +19,7 @@
         _focus: function(evt) {
             Konva.outOfFocus = true;
         },
-	
+
         _drag: function(evt) {
             var dd = Konva.DD,
                 node = dd.node;
