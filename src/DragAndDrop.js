@@ -16,9 +16,17 @@
         node: null,
 
         // methods
+        _focus: function(evt) {
+            Konva.outOfFocus = true;
+        },
+	
         _drag: function(evt) {
             var dd = Konva.DD,
                 node = dd.node;
+            if (Konva.outOfFocus) {
+               Konva.outOfFocus = false;
+               return;
+            }     
 
             if(node) {
                if(!dd.isDragging) {
@@ -305,4 +313,6 @@
     html.addEventListener('mouseup', Konva.DD._endDragAfter, false);
     html.addEventListener('touchend', Konva.DD._endDragAfter, false);
 
+    // To ignore mousemove after getting focus
+    window.addEventListener('focus', Konva.DD._focus);
 })();

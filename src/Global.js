@@ -49,6 +49,7 @@
         shapes: {},
         listenClickTap: false,
         inDblClickWindow: false,
+        outOfFocus: false,
 
         // configurations
         enableTrace: false,
